@@ -1,0 +1,55 @@
+.Box {
+    width: 300px;
+    margin: 27vh auto 0 auto;
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 4px;
+    font-size: 12px;
+   
+}
+
+
+button {
+    padding: 10px;
+    margin-top: 30px;
+    width: 16em;
+    margin-left: 43px;
+    color: white;
+    background-color: #497174;
+    border: none;
+    border-radius: 4px;
+}
+
+body {
+    background: linear-gradient(45deg, #EB6440, #497174, #D6E4E5);
+    font-family:Arial, Helvetica, sans-serif;
+    height: 100vh;
+}
+
+
+
+.form-input {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+::placeholder{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+input:invalid {
+    box-shadow: 2px solid red;
+  }
+
+  input[type = text]{
+    width: 100%;
+    padding: 10px 15px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+input[type = tel]{
+    width: 100%;
+    padding: 10px 15px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
