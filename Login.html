@@ -20,18 +20,40 @@
                 </div>
                 <div style="padding: 5px 10px; ">
                     <label>Password</label> 
-                    <input type="text" id="name" placeholder="Password" required>
+                    <input type="text" id="pass" placeholder="Password" required>
                 </div>
             </form>
-            <button type="submit">Login</button> 
+            <button type="submit" onClick="verify()">Login</button> 
             
         </div>
     </div>
 
-
     <script>
 
-        //nothing in script yet
+        function verify(){
+
+            const user = document.getElementById('name');
+            const pass = document.getElementById('pass');
+
+            let userFlag = false;
+            let passFlag = false;
+
+            if (user.value === "user_admin" && pass.value === "1234") {
+                userFlag = true;
+                passFlag = true;
+                alert("Successful login!");
+            }
+
+            if (!userFlag || !passFlag) {
+                alert("Unsuccessful login!");
+            }
+
+            else if (userFlag && passFlag) {
+                window.location = "home.html";
+            }
+        
+                    
+        }
         
     </script>
 
