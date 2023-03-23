@@ -1,7 +1,6 @@
 //Simple test program that creates the serverlist Array and adds/removes elements from that array.
 
 //------------------------------------ Initializers for Attributes of Web Server
-//I feel like I'm coding in C now lmao
 const MAXSIZE = 10;
 let server0 = [];
 let server1 = [];
@@ -35,14 +34,14 @@ const getServerCapacity = (serveri) => {
  * It returns 0, 1, 2, or false if no servers are available
  * @param1 - serverLogic will indicate the priority of the servers:
  * 1 - Prioritize adding to the lowest server
- * 2 - Prioritize server 0
+ * 2 - Prioritze every server OTHER THAN server0
  * 3 - Prioritize every server getting to 50% first
  */
 const getAvailableServer = (serverLogic) => {
   // Updating Server Status
   for (let i = 0; i < serverlist.length; i++) {
     if (getServerCapacity(i) >= MAXSIZE && getServerStatus(i) === true) {
-      toggleStatus(i);
+      toggleStatus(i); 
     }
   }
 
@@ -52,7 +51,8 @@ const getAvailableServer = (serverLogic) => {
     let minIndex = 0;
     let minCapacity = getServerCapacity(0);
     for (let i = 0; i < serverlist.length; i++) {
-      if (getServerCapacity(i) < minCapacity) {
+      //Checks if Server has space AND if the server is online
+      if ((getServerCapacity(i) < minCapacity) && getServerStatus(i)) {
         minIndex = i;
         minCapacity = getServerCapacity(i);
       }
@@ -67,16 +67,16 @@ const getAvailableServer = (serverLogic) => {
   // If serverLogic == 2, then prioritize filling up servers 1 and 2 before server0
   if (serverLogic === 2) {
     // If server's 1 and 2 are full (indicated by it's status)
-    if (serverStatus[1] === false && serverStatus[2] === false) {
+    if ((serverStatus[1] === false && serverStatus[2] === false) || ( getServerCapacity[1] < 10 && getServerCapacity[2] < 10)) {
       //return server 0 if it is not full (indicated by it's status)
       if (serverStatus[0]) {
         return 0;
       }
     } else {
-      if (serverStatus[1] === true) {
+      if (serverStatus[1] && getServerCapacity[1] < 10) {
         return 1;
       }
-      if (serverStatus[2] === true) {
+      if (serverStatus[2] && getServerCapacity[2] < 10) {
         return 2;
       }
     }
@@ -121,6 +121,20 @@ const redirectUser = (userIP, serveri) => {
     serverlist[serveri].push(userIP);
   }
 };
+
+
+//Attempts to remove userIP from serveri 
+const removeUser = (userIP,serveri) => {
+  index = serverlist[serveri].indexOf(userIP)
+  if(index != -1){
+    arr.splice(index,1)
+  }
+}
+
+//Pushes user to serveri
+const addUser = (userIP, serveri) => {
+  serverlist[serveri].push(userIP)
+}
 
 ///Testing case: creating temp servers and trying to addnew users.
 
