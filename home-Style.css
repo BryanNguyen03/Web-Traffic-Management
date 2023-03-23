@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Sofia Sans", serif-sans;
+    scroll-behavior: smooth;
+
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: 30px;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #EB6440, #497174, #D6E4E5);
+  }
+
+#cards, #queue{
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    justify-content: space-between;
+    height: 100vh;
+
+}
+
+
+.card {
+    margin-bottom: 40px;
+    margin-top: 40px;
+    width: 350px;
+    height: 254px;
+    border-radius: 30px;
+    background: #212121;
+    box-shadow: 15px 15px 30px rgb(25, 25, 25),
+                -15px -15px 30px rgb(60, 60, 60);
+   }
