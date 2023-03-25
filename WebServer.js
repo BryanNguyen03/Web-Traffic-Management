@@ -207,8 +207,8 @@ export default class WebServer {
 
   // Helper method for printing our server lists
   printwebservers = () => {
-    for (let i = 0; i < p1.getServerList().length; i++) {
-      console.log(`serverlist[${i}] = [ ${p1.displayServerList(i)} ]`);
+    for (let i = 0; i < this.getServerList().length; i++) {
+      console.log(`serverlist[${i}] = [ ${this.displayServerList(i)} ]`);
     }
   };
 

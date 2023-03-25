@@ -65,3 +65,9 @@ input[type = "radio"] {
     display:block;
 
 }
+
+#server-button {
+    position:absolute;
+    right:100px;
+    bottom:300px;
+}

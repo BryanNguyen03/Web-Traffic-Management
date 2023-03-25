@@ -42,12 +42,18 @@
         </div>
 
         <div id= "logic-buttons">
-            <input type = "radio" name = "logic" value = "Fill Lowest Server">
+            <input type = "radio" name = "logic" value = "1" checked>
             <label> Fill Lowest Server </label>
-            <input type = "radio" name = "logic" value = "Avoid server1">
+            <input type = "radio" name = "logic" value = "2">
             <label> Avoid Server1</label>
-            <input type = "radio" name = "logic" value = "Fill all Servers to 50% first">
+            <input type = "radio" name = "logic" value = "3">
             <label> Fill Servers to 50% First.</label>
+        </div>
+
+        <div id = "server-button">
+            <button type = "button">
+                Enable/Disable Servers
+            </button>
         </div>
 
         
@@ -59,6 +65,7 @@
 
             let p1 = new WebServer();
             let queueBeside = 0; 
+            let serverLogic = 1; //Default serverLogic on the first radio button.
 
             //TEST WebServer, Just to check queue size.
             p1.testWebServer(3,35);
@@ -69,7 +76,8 @@
             const s2 = document.getElementById("server2");
             const s3 = document.getElementById("server3");
             const q = document.getElementById("queue");
-            console.log(p1.getServerList());
+            const radioLogic = document.getElementsByName("logic");
+            const button = document.getElementById("server-button");
 
 
             //updateMethod, refreshes every 1000ms
@@ -79,6 +87,21 @@
                 s3.querySelector(".s3-info").innerHTML = `${p1.getServerCapacity(2)} / ${p1.MAXSIZE}`;
                 q.querySelector(".queue-info").innerHTML = (p1.getQueueCapacity());
             }
+
+            //Add an EventListener to each button, changing the serverLogic depending on which number was pressed
+            radioLogic.forEach(radio => {
+                radio.addEventListener("change", () => {
+                    serverLogic = parseInt(radio.value);
+                    console.log(serverLogic);
+                })
+            });
+
+            //Button EventListener to disable/enable servers
+            button.addEventListener('click', () => {
+                p1.toggleStatus(0);
+                p1.toggleStatus(1);
+                p1.toggleStatus(2);
+            });
             
             setInterval(updateServerInfo,1000);
 
@@ -146,15 +169,6 @@
 
             //Anonymous function is needed for setInterval to allow functions with params.
             setInterval( () => p1.queueToServer(queueBeside), 1000);
-
-            p1.removeUser("8",2);
-            p1.removeUser("8",2);
-            p1.removeUser("8",2);
-            p1.removeUser("8",2);
-
-            p1.toggleStatus(2);
-            p1.toggleStatus(2);
-
         </script>
 
 
