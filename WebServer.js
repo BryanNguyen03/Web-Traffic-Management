@@ -40,14 +40,16 @@ export default class WebServer {
   //toggleStatus(server)
   toggleStatus = (serveri) => {
     this.serverStatus[serveri] = !this.getServerStatus(serveri);
+    if (this.serverStatus[serveri] === false) {
+      this.serverlist[serveri] = [];
+      console.log(`Disconnecting all Users in Server ${serveri}`);
+    }
   };
 
-  
   getServerCapacity = (serveri) => {
-    if(this.getServerStatus(serveri))
-    return this.serverlist[serveri].length;
+    if (this.getServerStatus(serveri)) return this.serverlist[serveri].length;
     return "OFFLINE";
-};
+  };
   /*
    * getAvailableServer will return the next available server to put a user in
    * It returns 0, 1, 2, or false if no servers are available
@@ -129,7 +131,9 @@ export default class WebServer {
 
   // Block IP
   blockIP = (userIP) => {
-    if (userIP.length > 0) {
+    if (this.IPblocked(userIP)) {
+      console.log(`User IP ${userIP} already blocked`);
+    } else if (userIP.length > 0) {
       this.blockedIPs.push(userIP);
       console.log(`User IP ${userIP} blocked`);
     }
@@ -170,40 +174,34 @@ export default class WebServer {
 
   removeUser = (userIP) => {
     // Boolean to keep track of whether we cannot remove due to an offline server or if the user was not found
-    let serverOffline = false;
+    let removed = false;
     for (let i = 0; i < this.serverlist.length; i++) {
       let index = this.serverlist[i].indexOf(userIP);
       // If the userIP is found in the server
-      if (index !== -1) {
-        // Check the server status
-        if (this.getServerStatus(i) === false) {
-          serverOffline = true;
-          console.log(`Unable to remove userIP ${userIP}. Server ${i} offline`);
-        }
-        // If user is found and server is online, remove them and return
-        else {
-          console.log(`User IP ${userIP} removed`);
-          this.serverlist[i].splice(index, 1);
-          return;
-        }
+      if (
+        this.getServerStatus(i) !== false &&
+        index !== -1 &&
+        removed === false
+      ) {
+        console.log(`User IP ${userIP} removed`);
+        this.serverlist[i].splice(index, 1);
+        removed = true;
       }
     }
 
     // If server was online, and we did not return yet (in other words, we have not removed the user)
     // Then it was because the user was not found
-    if (!serverOffline) {
+    if (!removed) {
       console.log(`Unable to remove userIP ${userIP}. userIP cannot be found`);
     }
   };
 
-  
   //Shifts the front of the queue array into a serveri
   queueToServer = (serveri) => {
-    if(this.getServerCapacity(serveri) < 10){
-        this.serverlist[serveri].push(this.queue.shift());
+    if (this.getServerCapacity(serveri) < 10) {
+      this.serverlist[serveri].push(this.queue.shift());
     }
-  } 
-  
+  };
 
   ///Testing case: creating temp servers and trying to addnew users.
 
