@@ -37,6 +37,7 @@ body{
     box-shadow: 15px 15px 30px rgb(25, 25, 25),
                 -15px -15px 30px rgb(60, 60, 60);
     font-size: 30px;
+    
     text-align:center;
     justify-content: center;   
        
@@ -51,3 +52,16 @@ body{
     
    }
 
+
+/* CHANGE THIS CODE, I can't really code
+well in css so style the logic buttons better pls 
+-Jason */
+#logic-buttons {
+    position:absolute;
+    right: 200px;
+}
+
+input[type = "radio"] {
+    display:block;
+
+}

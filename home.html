@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="container">
+    <section id="container">
 
         <div id= "cards">
             <div class="card" id = "server1">
@@ -41,36 +41,54 @@
             </div>
         </div>
 
+        <div id= "logic-buttons">
+            <input type = "radio" name = "logic" value = "Fill Lowest Server">
+            <label> Fill Lowest Server </label>
+            <input type = "radio" name = "logic" value = "Avoid server1">
+            <label> Avoid Server1</label>
+            <input type = "radio" name = "logic" value = "Fill all Servers to 50% first">
+            <label> Fill Servers to 50% First.</label>
+        </div>
+
+        
+
     
 
         <script type = "module">
             import WebServer from './WebServer.js';
 
             let p1 = new WebServer();
-            
+            let queueBeside = 0; 
+
             //TEST WebServer, Just to check queue size.
             p1.testWebServer(3,35);
             
             //Displays the ServerCapacities on each card.
+
             const s1 = document.getElementById("server1");
             const s2 = document.getElementById("server2");
             const s3 = document.getElementById("server3");
             const q = document.getElementById("queue");
             console.log(p1.getServerList());
+
+
+            //updateMethod, refreshes every 1000ms
+            function updateServerInfo() {
+                s1.querySelector(".s1-info").innerHTML = `${p1.getServerCapacity(0)} / ${p1.MAXSIZE}`;
+                s2.querySelector(".s2-info").innerHTML = `${p1.getServerCapacity(1)} / ${p1.MAXSIZE}`;
+                s3.querySelector(".s3-info").innerHTML = `${p1.getServerCapacity(2)} / ${p1.MAXSIZE}`;
+                q.querySelector(".queue-info").innerHTML = (p1.getQueueCapacity());
+            }
             
-            s1.querySelector(".s1-info").innerHTML = `${p1.getServerCapacity(0)} / ${p1.MAXSIZE}`;
-            s2.querySelector(".s2-info").innerHTML = `${p1.getServerCapacity(1)} / ${p1.MAXSIZE}`;
-            s3.querySelector(".s3-info").innerHTML = `${p1.getServerCapacity(2)} / ${p1.MAXSIZE}`;
-            q.querySelector(".queue-info").innerHTML = (p1.getQueueCapacity());
-
-
+            setInterval(updateServerInfo,1000);
 
             //Makes the Queue block draggable, Getting its position and Locks it beside servers1-3.
             //Used to move queue back into servers when full.
-            dragElement(document.getElementById("queue"));
+            //Once a queue is connected, it attempts to push traffic into the server.
 
+            dragElement(document.getElementById("queue"));
             function dragElement(elmnt) {
-            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            var pos2 = 0, pos4 = 0;
             if (document.getElementById(elmnt.id + "header")) {
                 // if present, the header is where you move the DIV from:
                 document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
@@ -79,52 +97,68 @@
                 elmnt.onmousedown = dragMouseDown;
             }
 
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // get the mouse cursor position at startup:
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                // call a function whenever the cursor moves:
-                document.onmousemove = elementDrag;
-            }
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // get the mouse cursor position at startup:
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // call a function whenever the cursor moves:
+                    document.onmousemove = elementDrag;
+                }
 
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // calculate the new cursor position:
-                pos2 = pos4 - e.clientY;
-                pos4 = e.clientY;
-                // set the element's new Y-position:
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                
-            }
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // calculate the new cursor position:
+                    pos2 = pos4 - e.clientY;
+                    pos4 = e.clientY;
+                    // set the element's new Y-position:
+                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                    
+                }
 
-            function closeDragElement() {
-                // stop moving when mouse button is released:
-                document.onmouseup = null;
-                document.onmousemove = null;
+                function closeDragElement() {
+                    // stop moving when mouse button is released:
+                    document.onmouseup = null;
+                    document.onmousemove = null;
 
-                //Locks Position beside Server 1,2,3 depending on its ending position. 
-                var top = parseInt(elmnt.style.top);
-                switch (true) {
-                    case (top <= 70):
-                    elmnt.style.top = "0px";
-                    break;
-                    case (top > 70 && top <= 390):
-                    elmnt.style.top = "310px";
-                    break;
-                    case (top > 390):
-                    elmnt.style.top = "620px";
-                    break;
+                    //Locks Position beside Server 1,2,3 depending on its ending position. 
+                    var top = parseInt(elmnt.style.top);
+                    switch (true) {
+                        case (top <= 70):
+                        elmnt.style.top = "0px";
+                        queueBeside = 0;
+                        break;
+
+                        case (top > 70 && top <= 390):
+                        elmnt.style.top = "310px";
+                        queueBeside = 1;
+                        break;
+
+                        case (top > 390):
+                        elmnt.style.top = "620px";
+                        queueBeside = 2;
+                        break;
+                    }    
                 }
             }
-        }
+
+            //Anonymous function is needed for setInterval to allow functions with params.
+            setInterval( () => p1.queueToServer(queueBeside), 1000);
+
+            p1.removeUser("8",2);
+            p1.removeUser("8",2);
+            p1.removeUser("8",2);
+            p1.removeUser("8",2);
+
+            p1.toggleStatus(2);
+            p1.toggleStatus(2);
 
         </script>
 
-    </div>
+
+    </section>
 </body>
 
 </html>
