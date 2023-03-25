@@ -42,10 +42,12 @@ export default class WebServer {
     this.serverStatus[serveri] = !this.getServerStatus(serveri);
   };
 
+  
   getServerCapacity = (serveri) => {
+    if(this.getServerStatus(serveri))
     return this.serverlist[serveri].length;
-  };
-
+    return "OFFLINE";
+};
   /*
    * getAvailableServer will return the next available server to put a user in
    * It returns 0, 1, 2, or false if no servers are available
@@ -193,6 +195,15 @@ export default class WebServer {
       console.log(`Unable to remove userIP ${userIP}. userIP cannot be found`);
     }
   };
+
+  
+  //Shifts the front of the queue array into a serveri
+  queueToServer = (serveri) => {
+    if(this.getServerCapacity(serveri) < 10){
+        this.serverlist[serveri].push(this.queue.shift());
+    }
+  } 
+  
 
   ///Testing case: creating temp servers and trying to addnew users.
 
