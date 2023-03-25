@@ -5,7 +5,7 @@
 //I feel like I'm coding in C now lmao
 
 
-class WebServer{
+export default class WebServer{
   constructor(){
       this.MAXSIZE = 10
       this.server0 = [];
@@ -14,7 +14,6 @@ class WebServer{
       this.serverlist = [this.server0, this.server1, this.server2];
       this.serverStatus = [true, true, true];
       this.queue = [];
-      this.loginCredentials = [["username", "password"]]; //loginCredentials contain lists of [username,password]
       this.blockedIPs = [];
   }
 
@@ -163,14 +162,14 @@ class WebServer{
       for (let i = 0; i < x; i++) {
           this.registerNewUser("8",serverLogic);
           
-          console.log(`serverlist[0] = ${this.serverlist[0]}`);
-          console.log(`serverlist[1] = ${this.serverlist[1]}`);
-          console.log(`serverlist[2] = ${this.serverlist[2]}`);
-          console.log(`queue = ${this.queue}\n`);
+        //   console.log(`serverlist[0] = ${this.serverlist[0]}`);
+        //   console.log(`serverlist[1] = ${this.serverlist[1]}`);
+        //   console.log(`serverlist[2] = ${this.serverlist[2]}`);
+        //   console.log(`queue = ${this.queue}\n`);
       }
-      console.log(`serverlist[0] capacity = ${this.getServerCapacity(0)} / ${this.MAXSIZE}`);
-      console.log(`serverlist[1] capacity = ${this.getServerCapacity(1)} / ${this.MAXSIZE}`);
-      console.log(`serverlist[2] capacity = ${this.getServerCapacity(2)} / ${this.MAXSIZE}`);
+    //   console.log(`serverlist[0] capacity = ${this.getServerCapacity(0)} / ${this.MAXSIZE}`);
+    //   console.log(`serverlist[1] capacity = ${this.getServerCapacity(1)} / ${this.MAXSIZE}`);
+    //   console.log(`serverlist[2] capacity = ${this.getServerCapacity(2)} / ${this.MAXSIZE}`);
   };
 }
 
