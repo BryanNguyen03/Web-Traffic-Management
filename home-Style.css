@@ -36,4 +36,18 @@ body{
     background: #212121;
     box-shadow: 15px 15px 30px rgb(25, 25, 25),
                 -15px -15px 30px rgb(60, 60, 60);
+    font-size: 30px;
+    text-align:center;
+    justify-content: center;   
+       
    }
+
+   #queue {
+    position:absolute;
+    top:0px;
+    left: 470px;
+    padding: 0%;
+    height: 325px;    
+    
+   }
+

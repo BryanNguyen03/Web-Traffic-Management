@@ -34,6 +34,10 @@ export default class WebServer{
       return this.serverlist[serveri];
   }
 
+  getQueueCapacity = () =>{
+    return this.queue.length;
+  }
+
   //toggleStatus(server)
   toggleStatus = (serveri) => {
       this.serverStatus[serveri] = !this.getServerStatus(serveri);
