@@ -11,6 +11,8 @@
 <body>
     <section id="container">
 
+        
+
         <div id= "cards">
             <div class="card" id = "server1">
                     <h2> Server 1:</h2>
@@ -41,21 +43,41 @@
             </div>
         </div>
 
-        <div id= "logic-buttons">
-            <input type = "radio" name = "logic" value = "1" checked>
-            <label> Fill Lowest Server </label>
-            <input type = "radio" name = "logic" value = "2">
-            <label> Avoid Server1</label>
-            <input type = "radio" name = "logic" value = "3">
-            <label> Fill Servers to 50% First.</label>
-        </div>
+        <div>
+            <div>
+                
+                <div id= "logic-buttons">
+                    <input type = "radio" name = "logic" value = "1" checked>
+                    <label> Fill Lowest Server </label>
+                    <input type = "radio" name = "logic" value = "2">
+                    <label> Avoid Server1</label>
+                    <input type = "radio" name = "logic" value = "3">
+                    <label> Fill Servers to 50% First.</label>
 
-        <div id = "server-button">
-            <button type = "button">
-                Enable/Disable Servers
-            </button>
-        </div>
+                    <div class="ipbans">
+                        <button type="button" >
+                            Ban
+                        </button>
+                        <label>IP Ban</label> 
+                        <input type="text" id="name" placeholder="IP" required>
+                    </div>
 
+                    <div id="server-button">
+                        <button type = "button">
+                            Enable/Disable Servers
+                        </button>
+                    </div>
+                    
+                </div>
+
+                
+
+            </div>
+        </div>
+        
+
+    </section>
+</body>
         
 
     
@@ -150,17 +172,17 @@
                     var top = parseInt(elmnt.style.top);
                     switch (true) {
                         case (top <= 70):
-                        elmnt.style.top = "0px";
+                        elmnt.style.top = "10px";
                         queueBeside = 0;
                         break;
 
                         case (top > 70 && top <= 390):
-                        elmnt.style.top = "310px";
+                        elmnt.style.top = "265px";
                         queueBeside = 1;
                         break;
 
                         case (top > 390):
-                        elmnt.style.top = "620px";
+                        elmnt.style.top = "535px";
                         queueBeside = 2;
                         break;
                     }    
@@ -171,8 +193,5 @@
             setInterval( () => p1.queueToServer(queueBeside), 1000);
         </script>
 
-
-    </section>
-</body>
 
 </html>
