@@ -198,7 +198,7 @@ export default class WebServer {
 
   //Shifts the front of the queue array into a serveri
   queueToServer = (serveri) => {
-    if (this.getServerCapacity(serveri) < 10) {
+    if (this.getServerCapacity(serveri) < 10 && this.queue.length > 0) {
       this.serverlist[serveri].push(this.queue.shift());
     }
   };
@@ -221,12 +221,24 @@ export default class WebServer {
    * @param2 - Number of times to add
    * ex: testWebServer(3, 30) -> will run 30 times, each iteration adds a person to the correct server depending on the given logic
    */
-  testWebServer = (serverLogic, x) => {
-    let randomNumber = 0;
-    for (let i = 0; i < x; i++) {
+
+    
+    testWebServer = (serverLogic) => {
+      //Gets the total capacity of all servers.
+      const getTotalServerSize = () => {
+        let x = 0
+        this.getServerList().forEach(server => {
+          x += server.length;
+        });
+        return x;
+      };
+
+
+      let randomNumber = 0;
+
       // The actual maxsize of all webservers combined would be MAXSIZE * the number of servers
       // so we'll have a 2:1 ratio of adding more users to removing users until we almost reach max capacity
-      if (i < this.MAXSIZE * this.getServerList.length - 0.5) {
+      if (getTotalServerSize() < this.MAXSIZE * this.getServerList().length - 0.5) {
         randomNumber = Math.floor(Math.random() * 3) + 1;
       }
       // Once our webservers are almost at max capacity, we can swap back to 1:1 ratio of adding to removing
@@ -243,10 +255,17 @@ export default class WebServer {
         this.registerNewUser("8", serverLogic);
       }
 
+      
+
+
+
       this.printwebservers();
       console.log(`queue = ${this.queue}\n`);
-    }
 
     this.printwebservers();
   };
+
+
+
+
 }

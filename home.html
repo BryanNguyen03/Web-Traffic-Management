@@ -93,9 +93,6 @@
             let p1 = new WebServer();
             let queueBeside = 0; 
             let serverLogic = 1; //Default serverLogic on the first radio button.
-
-            //TEST WebServer, Just to check queue size.
-            p1.testWebServer(3,35);
             
             //Displays the ServerCapacities on each card.
 
@@ -196,6 +193,8 @@
 
             //Anonymous function is needed for setInterval to allow functions with params.
             setInterval( () => p1.queueToServer(queueBeside), 1000);
+            //Attempts to add/remove from Webserver every 1 second
+            setInterval( () => p1.testWebServer(serverLogic), 1000);
         </script>
 
 
