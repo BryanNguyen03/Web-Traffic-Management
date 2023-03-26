@@ -11,8 +11,6 @@
 <body>
     <section id="container">
 
-        
-
         <div id= "cards">
             <div class="card" id = "server1">
                     <h2> Server 1:</h2>
@@ -42,41 +40,48 @@
                 </div>
             </div>
         </div>
+    
+    
 
+    <div id="rightside">
         <div>
+            
+            <div id= "logic-buttons">
+            <div id="rightside">
+                <label> Fill Lowest Server </label>
+                <input type = "radio" name = "logic" value = "1" checked>
+            </div>
             <div>
-                
-                <div id= "logic-buttons">
-                    <input type = "radio" name = "logic" value = "1" checked>
-                    <label> Fill Lowest Server </label>
-                    <input type = "radio" name = "logic" value = "2">
-                    <label> Avoid Server1</label>
-                    <input type = "radio" name = "logic" value = "3">
-                    <label> Fill Servers to 50% First.</label>
-
-                    <div class="ipbans">
-                        <button type="button" >
-                            Ban
-                        </button>
-                        <label>IP Ban</label> 
-                        <input type="text" id="name" placeholder="IP" required>
-                    </div>
-
-                    <div id="server-button">
-                        <button type = "button">
-                            Enable/Disable Servers
-                        </button>
-                    </div>
-                    
+                <label> Avoid Server1</label>
+                <input type = "radio" name = "logic" value = "2">
+            </div>
+            <div>
+                <label> Fill Servers to 50% First.</label>
+                <input type = "radio" name = "logic" value = "3">
+            </div>
+                <div class="ipbans" style="padding-top: 15px;">
+                    <label>IP Ban</label> 
+                    <input type="text" id="name" placeholder="IP" required>
                 </div>
 
+                <div style="padding-top: 15px;">
+                    <button type="button">
+                        Ban
+                    </button>
+                </div>
                 
-
+                <div id="server-button" style="padding-top: 15px;">
+                    <button type = "button">
+                        Enable/Disable Servers
+                    </button>
+                </div>
+                
             </div>
+
         </div>
         
-
-    </section>
+    </div>
+</section>
 </body>
         
 
