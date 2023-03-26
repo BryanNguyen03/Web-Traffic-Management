@@ -132,8 +132,10 @@ export default class WebServer {
   // Block IP
   blockIP = (userIP) => {
     if (this.IPblocked(userIP)) {
+      alert(`User IP ${userIP} already blocked`);
       console.log(`User IP ${userIP} already blocked`);
-    } else if (userIP.length > 0) {
+    } else if (userIP.toString().length > 0) {
+      alert(`User IP ${userIP} blocked`);
       this.blockedIPs.push(userIP);
       console.log(`User IP ${userIP} blocked`);
     }
@@ -222,50 +224,43 @@ export default class WebServer {
    * ex: testWebServer(3, 30) -> will run 30 times, each iteration adds a person to the correct server depending on the given logic
    */
 
-    
-    testWebServer = (serverLogic) => {
-      //Gets the total capacity of all servers.
-      const getTotalServerSize = () => {
-        let x = 0
-        this.getServerList().forEach(server => {
-          x += server.length;
-        });
-        return x;
-      };
+  testWebServer = (serverLogic) => {
+    //Gets the total capacity of all servers.
+    const getTotalServerSize = () => {
+      let x = 0;
+      this.getServerList().forEach((server) => {
+        x += server.length;
+      });
+      return x;
+    };
 
+    let randomNumber = 0;
 
-      let randomNumber = 0;
+    // The actual maxsize of all webservers combined would be MAXSIZE * the number of servers
+    // so we'll have a 2:1 ratio of adding more users to removing users until we almost reach max capacity
+    if (
+      getTotalServerSize() <
+      this.MAXSIZE * this.getServerList().length - 0.5
+    ) {
+      randomNumber = Math.floor(Math.random() * 3) + 1;
+    }
+    // Once our webservers are almost at max capacity, we can swap back to 1:1 ratio of adding to removing
+    // Where our randomNumber will indicate whether we add or remove
+    else {
+      randomNumber = Math.floor(Math.random() * 2) + 1;
+    }
 
-      // The actual maxsize of all webservers combined would be MAXSIZE * the number of servers
-      // so we'll have a 2:1 ratio of adding more users to removing users until we almost reach max capacity
-      if (getTotalServerSize() < this.MAXSIZE * this.getServerList().length - 0.5) {
-        randomNumber = Math.floor(Math.random() * 3) + 1;
-      }
-      // Once our webservers are almost at max capacity, we can swap back to 1:1 ratio of adding to removing
-      // Where our randomNumber will indicate whether we add or remove
-      else {
-        randomNumber = Math.floor(Math.random() * 2) + 1;
-      }
+    if (randomNumber === 1) {
+      this.registerNewUser("8", serverLogic);
+    } else if (randomNumber === 2) {
+      this.removeUser("8");
+    } else {
+      this.registerNewUser("8", serverLogic);
+    }
 
-      if (randomNumber === 1) {
-        this.registerNewUser("8", serverLogic);
-      } else if (randomNumber === 2) {
-        this.removeUser("8");
-      } else {
-        this.registerNewUser("8", serverLogic);
-      }
-
-      
-
-
-
-      this.printwebservers();
-      console.log(`queue = ${this.queue}\n`);
+    this.printwebservers();
+    console.log(`queue = ${this.queue}\n`);
 
     this.printwebservers();
   };
-
-
-
-
 }

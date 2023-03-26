@@ -1,201 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="home-Style.css">
-</head>
+    <link rel="stylesheet" href="home-Style.css" />
+  </head>
 
-<body>
+  <body>
     <section id="container">
-
-        <div id= "cards">
-            <div class="card" id = "server1">
-                    <h2> Server 1:</h2>
-                <div class = "s1-info"> 
-                    <h2> test</h2>
-                </div>
-            </div>
-            <div class="card" id = "server2">
-                    <h2> Server 2:</h2>
-                <div class = "s2-info"> 
-                    <h2> test</h2>
-                </div>
-            </div>
-            <div class="card" id = "server3">
-                    <h2> Server 3:</h2>
-                <div class = "s3-info"> 
-                    <h2> test</h2>
-                </div>
-            </div>
+      <div id="cards">
+        <div class="card" id="server1">
+          <h2>Server 1:</h2>
+          <div class="s1-info">
+            <h2>test</h2>
+          </div>
         </div>
-
-        <div id= "queue">
-            <div class="card">
-                    <h2> Queue: </h2>
-                <div class = queue-info>
-                    <h2> test</h2>
-                </div>
-            </div>
+        <div class="card" id="server2">
+          <h2>Server 2:</h2>
+          <div class="s2-info">
+            <h2>test</h2>
+          </div>
         </div>
-    
-    
+        <div class="card" id="server3">
+          <h2>Server 3:</h2>
+          <div class="s3-info">
+            <h2>test</h2>
+          </div>
+        </div>
+      </div>
 
-    <div id="rightside">
+      <div id="queue">
+        <div class="card">
+          <h2>Queue:</h2>
+          <div class="queue-info">
+            <h2>test</h2>
+          </div>
+        </div>
+      </div>
+
+      <div id="rightside">
         <div>
-            
-            <div id= "logic-buttons">
+          <div id="logic-buttons">
             <div id="rightside">
-                <label> Fill Lowest Server </label>
-                <input type = "radio" name = "logic" value = "1" checked>
+              <label> Fill Lowest Server </label>
+              <input type="radio" name="logic" value="1" checked />
             </div>
             <div>
-                <label> Avoid Server1</label>
-                <input type = "radio" name = "logic" value = "2">
+              <label> Avoid Server1</label>
+              <input type="radio" name="logic" value="2" />
             </div>
             <div>
-                <label> Fill Servers to 50% First.</label>
-                <input type = "radio" name = "logic" value = "3">
-            </div>
-                <div class="ipbans" style="padding-top: 15px;">
-                    <label>IP Ban</label> 
-                    <input type="text" id="name" placeholder="IP" required>
-                </div>
-
-                <div style="padding-top: 15px;">
-                    <button type="button">
-                        Ban
-                    </button>
-                </div>
-                
-                <div id="server-button" style="padding-top: 15px;">
-                    <button type = "button">
-                        Enable/Disable Servers
-                    </button>
-                </div>
-                
+              <label> Fill Servers to 50% First.</label>
+              <input type="radio" name="logic" value="3" />
             </div>
 
+            <div style="padding-top: 15px">
+              <label>IP Ban</label>
+              <input type="text" id="ip" placeholder="IP" required />
+            </div>
+
+            <div id="ipbanbutton" style="padding-top: 15px">
+              <button type="button">Ban</button>
+            </div>
+
+            <div id="server-button" style="padding-top: 15px">
+              <button type="button">Enable/Disable Servers</button>
+            </div>
+          </div>
         </div>
-        
-    </div>
-</section>
-</body>
-        
+      </div>
+    </section>
+  </body>
 
-    
+  <script type="module">
+    import WebServer from "./WebServer.js";
 
-        <script type = "module">
-            import WebServer from './WebServer.js';
+    let p1 = new WebServer();
+    let queueBeside = 0;
+    let serverLogic = 1; //Default serverLogic on the first radio button.
 
-            let p1 = new WebServer();
-            let queueBeside = 0; 
-            let serverLogic = 1; //Default serverLogic on the first radio button.
-            
-            //Displays the ServerCapacities on each card.
+    //Displays the ServerCapacities on each card.
 
-            const s1 = document.getElementById("server1");
-            const s2 = document.getElementById("server2");
-            const s3 = document.getElementById("server3");
-            const q = document.getElementById("queue");
-            const radioLogic = document.getElementsByName("logic");
-            const button = document.getElementById("server-button");
+    const s1 = document.getElementById("server1");
+    const s2 = document.getElementById("server2");
+    const s3 = document.getElementById("server3");
+    const q = document.getElementById("queue");
+    const radioLogic = document.getElementsByName("logic");
+    const button = document.getElementById("server-button");
+    const banip = document.getElementById("ipbanbutton");
 
+    //updateMethod, refreshes every 1000ms
+    function updateServerInfo() {
+      s1.querySelector(".s1-info").innerHTML = `${p1.getServerCapacity(0)} / ${
+        p1.MAXSIZE
+      }`;
+      s2.querySelector(".s2-info").innerHTML = `${p1.getServerCapacity(1)} / ${
+        p1.MAXSIZE
+      }`;
+      s3.querySelector(".s3-info").innerHTML = `${p1.getServerCapacity(2)} / ${
+        p1.MAXSIZE
+      }`;
+      q.querySelector(".queue-info").innerHTML = p1.getQueueCapacity();
+    }
 
-            //updateMethod, refreshes every 1000ms
-            function updateServerInfo() {
-                s1.querySelector(".s1-info").innerHTML = `${p1.getServerCapacity(0)} / ${p1.MAXSIZE}`;
-                s2.querySelector(".s2-info").innerHTML = `${p1.getServerCapacity(1)} / ${p1.MAXSIZE}`;
-                s3.querySelector(".s3-info").innerHTML = `${p1.getServerCapacity(2)} / ${p1.MAXSIZE}`;
-                q.querySelector(".queue-info").innerHTML = (p1.getQueueCapacity());
-            }
+    //Add an EventListener to each button, changing the serverLogic depending on which number was pressed
+    radioLogic.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        serverLogic = parseInt(radio.value);
+        console.log(serverLogic);
+      });
+    });
 
-            //Add an EventListener to each button, changing the serverLogic depending on which number was pressed
-            radioLogic.forEach(radio => {
-                radio.addEventListener("change", () => {
-                    serverLogic = parseInt(radio.value);
-                    console.log(serverLogic);
-                })
-            });
+    //Button EventListener to disable/enable servers
+    button.addEventListener("click", () => {
+      p1.toggleStatus(0);
+      p1.toggleStatus(1);
+      p1.toggleStatus(2);
+    });
 
-            //Button EventListener to disable/enable servers
-            button.addEventListener('click', () => {
-                p1.toggleStatus(0);
-                p1.toggleStatus(1);
-                p1.toggleStatus(2);
-            });
-            
-            setInterval(updateServerInfo,1000);
+    banip.addEventListener("click", () => {
+      let ip = document.getElementById("ip");
+      p1.blockIP(ip.value);
+    });
 
-            //Makes the Queue block draggable, Getting its position and Locks it beside servers1-3.
-            //Used to move queue back into servers when full.
-            //Once a queue is connected, it attempts to push traffic into the server.
+    setInterval(updateServerInfo, 1000);
 
-            dragElement(document.getElementById("queue"));
-            function dragElement(elmnt) {
-            var pos2 = 0, pos4 = 0;
-            if (document.getElementById(elmnt.id + "header")) {
-                // if present, the header is where you move the DIV from:
-                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-            } else {
-                // otherwise, move the DIV from anywhere inside the DIV:
-                elmnt.onmousedown = dragMouseDown;
-            }
+    //Makes the Queue block draggable, Getting its position and Locks it beside servers1-3.
+    //Used to move queue back into servers when full.
+    //Once a queue is connected, it attempts to push traffic into the server.
 
-                function dragMouseDown(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // get the mouse cursor position at startup:
-                    pos4 = e.clientY;
-                    document.onmouseup = closeDragElement;
-                    // call a function whenever the cursor moves:
-                    document.onmousemove = elementDrag;
-                }
+    dragElement(document.getElementById("queue"));
+    function dragElement(elmnt) {
+      var pos2 = 0,
+        pos4 = 0;
+      if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onmousedown =
+          dragMouseDown;
+      } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+      }
 
-                function elementDrag(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // calculate the new cursor position:
-                    pos2 = pos4 - e.clientY;
-                    pos4 = e.clientY;
-                    // set the element's new Y-position:
-                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                    
-                }
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
 
-                function closeDragElement() {
-                    // stop moving when mouse button is released:
-                    document.onmouseup = null;
-                    document.onmousemove = null;
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos2 = pos4 - e.clientY;
+        pos4 = e.clientY;
+        // set the element's new Y-position:
+        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+      }
 
-                    //Locks Position beside Server 1,2,3 depending on its ending position. 
-                    var top = parseInt(elmnt.style.top);
-                    switch (true) {
-                        case (top <= 70):
-                        elmnt.style.top = "10px";
-                        queueBeside = 0;
-                        break;
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
 
-                        case (top > 70 && top <= 390):
-                        elmnt.style.top = "265px";
-                        queueBeside = 1;
-                        break;
+        //Locks Position beside Server 1,2,3 depending on its ending position.
+        var top = parseInt(elmnt.style.top);
+        switch (true) {
+          case top <= 70:
+            elmnt.style.top = "10px";
+            queueBeside = 0;
+            break;
 
-                        case (top > 390):
-                        elmnt.style.top = "535px";
-                        queueBeside = 2;
-                        break;
-                    }    
-                }
-            }
+          case top > 70 && top <= 390:
+            elmnt.style.top = "265px";
+            queueBeside = 1;
+            break;
 
-            //Anonymous function is needed for setInterval to allow functions with params.
-            setInterval( () => p1.queueToServer(queueBeside), 1000);
-            //Attempts to add/remove from Webserver every 1 second
-            setInterval( () => p1.testWebServer(serverLogic), 1000);
-        </script>
+          case top > 390:
+            elmnt.style.top = "535px";
+            queueBeside = 2;
+            break;
+        }
+      }
+    }
 
-
+    //Anonymous function is needed for setInterval to allow functions with params.
+    setInterval(() => p1.queueToServer(queueBeside), 1000);
+    //Attempts to add/remove from Webserver every 1 second
+    setInterval(() => p1.testWebServer(serverLogic), 1000);
+  </script>
 </html>
