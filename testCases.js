@@ -5,7 +5,6 @@ import WebServer from "./WebServer";
  * testRemoveUser - tests removing an IP from an offline server, removing an existing IP, removing a non-existing IP
  * testRegiser - tests adding a blocked IP and an unblocked IP with all three server logic algorithms.
  * testBlocking - tests blocking a new IP, and a pre-existing blockedIP
- * testServerLogic - Tests results adding users 20 times in all three logics, and adding over the max capacity
  */
 
 // -- TESTING REMOVE USER --
@@ -111,25 +110,4 @@ testBlocking = () => {
     `\nTest 4: blocking pre-existing IP 5 - SHOULD RETURN \"User IP 5 already blocked\"`
   );
   p1.blockIP("5");
-};
-
-// -- TESTING SERVER LOGIC --
-testServerLogic = () => {
-  // Case 1: Adding 20 users to servers using logic 1
-  let p = testWebServer(1, 20);
-
-  // Case 2: Adding 20 users to servers using logic 2
-
-  // Case 3: Adding 20 users to servers using logic 3
-
-  // Case 4: Adding over max capacity of users to servers using any logic
-};
-
-// Helper method for testing server logic
-testWebServer = (serverLogic, x) => {
-  let p1 = new WebServer();
-  for (let i = 0; i < x; i++) {
-    p1.registerNewUser(serverLogic, i);
-  }
-  return p1;
 };
