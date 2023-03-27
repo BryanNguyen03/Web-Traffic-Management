@@ -130,16 +130,32 @@ export default class WebServer {
   };
 
   // Block IP
+  // Block IP
   blockIP = (userIP) => {
     if (this.IPblocked(userIP)) {
       alert(`User IP ${userIP} already blocked`);
       console.log(`User IP ${userIP} already blocked`);
-    } else if (userIP.toString().length > 0) {
+    } else if (userIP.toString().length > 0 && this.IPValid(userIP)) {
       alert(`User IP ${userIP} blocked`);
       this.blockedIPs.push(userIP);
       console.log(`User IP ${userIP} blocked`);
     }
+    else{
+      alert(`User IP ${userIP} is invalid`);
+      console.log(`User IP ${userIP} is invalid`);
+    }
   };
+
+  //Checks if the IP is valid, (formating like 0.0.0.0 and no letters etc)
+
+  IPValid = (userIP) => {
+      if (/^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$/.test(userIP)){
+          return true;
+      }
+      else{
+          return false;
+      }
+  }
 
   // Check if IP is blocked
   IPblocked = (userIP) => {
