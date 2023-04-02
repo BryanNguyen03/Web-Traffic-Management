@@ -1,4 +1,3 @@
-
 //------------------------------------ Initializers for Attributes of Web Server
 import Visitor from "./Visitor.js";
 
@@ -128,7 +127,6 @@ export default class WebServer {
   };
 
   // Block IP
-  // Block IP
   blockIP = (userIP) => {
     if (this.IPblocked(userIP)) {
       alert(`User IP ${userIP} already blocked`);
@@ -136,15 +134,14 @@ export default class WebServer {
     } else if (userIP.toString().length > 0 && this.IPValid(userIP)) {
       alert(`User IP ${userIP} blocked`);
       this.blockedIPs.push(userIP);
-      
+
       //Wipes the IP from EVERY server. (since duplicates are allowed)
-      while(this.removeUser(userIP)){
+      while (this.removeUser(userIP)) {
         this.removeUser(userIP);
       }
-      
+
       console.log(`User IP ${userIP} blocked`);
-    }
-    else{
+    } else {
       alert(`User IP ${userIP} is invalid`);
       console.log(`User IP ${userIP} is invalid`);
     }
@@ -153,13 +150,16 @@ export default class WebServer {
   //Checks if the IP is valid, (formating like 0.0.0.0 and no letters etc)
 
   IPValid = (userIP) => {
-      if (/^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$/.test(userIP)){
-          return true;
-      }
-      else{
-          return false;
-      }
-  }
+    if (
+      /^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$/.test(
+        userIP
+      )
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   // Check if IP is blocked
   IPblocked = (userIP) => {
@@ -172,9 +172,9 @@ export default class WebServer {
   registerNewUser = (userIP, serverLogic) => {
     var availserver = this.getAvailableServer(serverLogic);
     if (this.IPblocked(userIP)) {
-      //alert("IP has been Blocked");
+      alert(`UserIP ${userIP} has been Blocked`);
       console.log(`UserIP ${userIP} blocked`);
-      return;
+      return false;
     } else if (availserver === false) {
       //0 is considered false, so we MUST use === to prevent 0 == false errors.
       //if no servers are available, then getAvailableServer returns false
@@ -272,7 +272,7 @@ export default class WebServer {
       randomNumber = Math.floor(Math.random() * 2) + 1;
     }
 
-    var vis = new Visitor;
+    var vis = new Visitor();
 
     if (randomNumber === 1) {
       this.registerNewUser(vis.getIP(), serverLogic);
