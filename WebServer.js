@@ -1,8 +1,6 @@
-//Simple test program that creates the serverlist Array and adds/removes elements from that array.
 
 //------------------------------------ Initializers for Attributes of Web Server
-//Changed everything into OOP
-//I feel like I'm coding in C now lmao
+import Visitor from "./Visitor.js";
 
 export default class WebServer {
   constructor() {
@@ -266,12 +264,14 @@ export default class WebServer {
       randomNumber = Math.floor(Math.random() * 2) + 1;
     }
 
+    var vis = new Visitor;
+
     if (randomNumber === 1) {
-      this.registerNewUser("8", serverLogic);
+      this.registerNewUser(vis.getIP(), serverLogic);
     } else if (randomNumber === 2) {
-      this.removeUser("8");
+      this.removeUser("8.8.8.8");
     } else {
-      this.registerNewUser("8", serverLogic);
+      this.registerNewUser("8.8.8.8", serverLogic);
     }
 
     this.printwebservers();
