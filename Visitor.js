@@ -3,6 +3,7 @@ A visitor Class, used only in WebServer.js to generate random IPs for each serve
 If given more time, each Visitor class would be stored inside the servers, and helper functions would be used to retrieve IPs and set states from 
 joined to unjoined.
 */
+
 export default class Visitor {
     //Default value of a randomly generated IP.
     constructor(ip=this.generateIP()){
