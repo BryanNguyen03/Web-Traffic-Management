@@ -59,11 +59,11 @@
             </div>
 
             <div style="padding-top: 15px">
-              <label>IP Ban</label>
+              <label>Insert IP</label>
               <input type="text" id="ip" placeholder="IP" required />
             </div>
 
-            <div id="ipbanbutton" style="padding-top: 15px">
+            <div id="ipban-button" style="padding-top: 15px">
               <button type="button">Ban</button>
             </div>
 
@@ -94,16 +94,19 @@
     let p1 = new WebServer();
     let queueBeside = 0;
     let serverLogic = 1; //Default serverLogic on the first radio button.
+    let simulateflag = false; //Toggle logic for the simulateWS button
 
     //Displays the ServerCapacities on each card.
-
     const s1 = document.getElementById("server1");
     const s2 = document.getElementById("server2");
     const s3 = document.getElementById("server3");
     const q = document.getElementById("queue");
+
+    //Grabs the buttons to enable logic
     const radioLogic = document.getElementsByName("logic");
     const button = document.getElementById("server-button");
-    const banip = document.getElementById("ipbanbutton");
+    const banip = document.getElementById("ipban-button");
+    const simulateWS = document.getElementById("simulatews-button");
 
     //updateMethod, refreshes every 1000ms
     function updateServerInfo() {
@@ -138,6 +141,10 @@
       let ip = document.getElementById("ip");
       p1.blockIP(ip.value);
     });
+
+    simulateWS.addEventListener("click", () => {
+        simulateflag = !simulateflag;
+    })
 
     setInterval(updateServerInfo, 1000);
 
@@ -206,7 +213,13 @@
 
     //Anonymous function is needed for setInterval to allow functions with params.
     setInterval(() => p1.queueToServer(queueBeside), 1000);
-    //Attempts to add/remove from Webserver every 1 second
-    setInterval(() => p1.testWebServer(serverLogic), 1000);
+    
+    
+    //Attempts to add/remove from Webserver every 1 second, Togglable with simulate WS Button
+    setInterval(() => {
+        if(simulateflag)
+        p1.testWebServer(serverLogic)
+    }, 1000);
+
   </script>
 </html>

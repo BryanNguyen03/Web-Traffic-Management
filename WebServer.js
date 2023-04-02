@@ -136,6 +136,12 @@ export default class WebServer {
     } else if (userIP.toString().length > 0 && this.IPValid(userIP)) {
       alert(`User IP ${userIP} blocked`);
       this.blockedIPs.push(userIP);
+      
+      //Wipes the IP from EVERY server. (since duplicates are allowed)
+      while(this.removeUser(userIP)){
+        this.removeUser(userIP);
+      }
+      
       console.log(`User IP ${userIP} blocked`);
     }
     else{
@@ -202,6 +208,7 @@ export default class WebServer {
         console.log(`User IP ${userIP} removed`);
         this.serverlist[i].splice(index, 1);
         removed = true;
+        return true;
       }
     }
 
@@ -209,6 +216,7 @@ export default class WebServer {
     // Then it was because the user was not found
     if (!removed) {
       console.log(`Unable to remove userIP ${userIP}. userIP cannot be found`);
+      return false;
     }
   };
 
