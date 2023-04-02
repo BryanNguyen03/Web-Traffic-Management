@@ -7,7 +7,6 @@
     <title>Home</title>
     <link rel="stylesheet" href="home-Style.css" />
   </head>
-
   <body>
     <section id="container">
       <div id="cards">
@@ -30,7 +29,6 @@
           </div>
         </div>
       </div>
-
       <div id="queue">
         <div class="card">
           <h2>Queue:</h2>
@@ -40,76 +38,88 @@
         </div>
       </div>
 
-      
       <div class="card3">
-        
-        
-          <div id="logic-buttons">
-            <div id="rightside">
-              <label> Fill Lowest Server </label>
-              <input type="radio" name="logic" value="1" checked />
-            </div>
-            <div>
-              <label> Avoid Server1</label>
-              <input type="radio" name="logic" value="2" />
-            </div>
-            <div>
-              <label> Fill Servers to 50% First.</label>
-              <input type="radio" name="logic" value="3" />
-            </div>
+        <div id="logic-buttons">
+          <div id="rightside">
+            <label> Fill Lowest Server </label>
+            <input type="radio" name="logic" value="1" checked />
+          </div>
+          <div>
+            <label> Avoid Server1</label>
+            <input type="radio" name="logic" value="2" />
+          </div>
+          <div>
+            <label> Fill Servers to 50% First.</label>
+            <input type="radio" name="logic" value="3" />
+          </div>
 
-            <div style="padding-top: 15px">
-              <label>Ban, Add, or Remove IP</label>
-              <input type="text" id="ip" placeholder="IP" required />
-            </div>
+          <div style="padding-top: 15px">
+            <label>Insert IP</label>
+            <input type="text" id="ip" placeholder="IP" required />
+          </div>
 
-            <div id="ipbanbutton" style="padding-top: 15px">
-              <button type="button">Ban</button>
-            </div>
+          <div id="ipban-button" style="padding-top: 15px">
+            <button type="button">Ban</button>
+          </div>
 
-            <div id="adduser-button" style="padding-top: 15px">
-                <button type="button">Add User</button>
-            </div>
-
-            <div id="removeuser-button" style="padding-top: 15px">
-                <button type="button">Remove User</button>
-            </div>
-
-            <div id="server-button" style="padding-top: 15px">
-                <button type="button">Enable/Disable Servers</button>
-              </div>
-
-            <div id="simulatews-button" style="padding-top: 15px">
-                <button type="button">Simulate WS</button>
-            </div>
+          <div id="server-button" style="padding-top: 15px">
+            <button type="button">Enable/Disable Servers</button>
+          </div>
+          <div id="adduser-button" style="padding-top: 15px">
+            <button type="button">Add User</button>
+          </div>
+          <div id="removeuser-button" style="padding-top: 15px">
+            <button type="button">Remove User</button>
+          </div>
+          <div id="simulatews-button" style="padding-top: 15px">
+            <button type="button">Simulate WS</button>
           </div>
         </div>
 
         <div id="scrollable-div">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod sed velit nec aliquet. Donec facilisis hendrerit ante, id sodales neque ultricies quis. Suspendisse sed lacinia nulla. Fusce pellentesque, purus a gravida vehicula, nisi quam sollicitudin velit, quis tristique odio lectus sit amet est.</p>
-            <p>Pellentesque vel ante eu enim hendrerit congue quis eget sapien. Suspendisse convallis nunc vitae est suscipit, quis laoreet felis convallis. Aenean eu velit ac metus faucibus tristique eu non metus. Morbi maximus fringilla feugiat.</p>
-            <p>Nullam rhoncus libero nec augue bibendum, nec dapibus elit pretium. Fusce eget felis volutpat, varius velit vel, luctus enim. Pellentesque commodo porttitor blandit. Sed bibendum blandit arcu, vel aliquam neque. Suspendisse potenti.</p>
-          </div>
-    
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
+            sed velit nec aliquet. Donec facilisis hendrerit ante, id sodales
+            neque ultricies quis. Suspendisse sed lacinia nulla. Fusce
+            pellentesque, purus a gravida vehicula, nisi quam sollicitudin
+            velit, quis tristique odio lectus sit amet est.
+          </p>
+          <p>
+            Pellentesque vel ante eu enim hendrerit congue quis eget sapien.
+            Suspendisse convallis nunc vitae est suscipit, quis laoreet felis
+            convallis. Aenean eu velit ac metus faucibus tristique eu non metus.
+            Morbi maximus fringilla feugiat.
+          </p>
+          <p>
+            Nullam rhoncus libero nec augue bibendum, nec dapibus elit pretium.
+            Fusce eget felis volutpat, varius velit vel, luctus enim.
+            Pellentesque commodo porttitor blandit. Sed bibendum blandit arcu,
+            vel aliquam neque. Suspendisse potenti.
+          </p>
+        </div>
+      </div>
     </section>
   </body>
-
   <script type="module">
     import WebServer from "./WebServer.js";
-
     let p1 = new WebServer();
     let queueBeside = 0;
     let serverLogic = 1; //Default serverLogic on the first radio button.
+    let simulateflag = false; //Toggle logic for the simulateWS button
 
     //Displays the ServerCapacities on each card.
-
     const s1 = document.getElementById("server1");
     const s2 = document.getElementById("server2");
     const s3 = document.getElementById("server3");
     const q = document.getElementById("queue");
+
+    //Grabs the buttons to enable logic
     const radioLogic = document.getElementsByName("logic");
     const button = document.getElementById("server-button");
-    const banip = document.getElementById("ipbanbutton");
+    const banip = document.getElementById("ipban-button");
+    const simulateWS = document.getElementById("simulatews-button");
+    const addUser = document.getElementById("adduser-button");
+    const removeUser = document.getElementById("removeuser-button");
 
     //updateMethod, refreshes every 1000ms
     function updateServerInfo() {
@@ -124,7 +134,6 @@
       }`;
       q.querySelector(".queue-info").innerHTML = p1.getQueueCapacity();
     }
-
     //Add an EventListener to each button, changing the serverLogic depending on which number was pressed
     radioLogic.forEach((radio) => {
       radio.addEventListener("change", () => {
@@ -132,7 +141,6 @@
         console.log(serverLogic);
       });
     });
-
     //Button EventListener to disable/enable servers
     button.addEventListener("click", () => {
       p1.toggleStatus(0);
@@ -145,12 +153,27 @@
       p1.blockIP(ip.value);
     });
 
+    simulateWS.addEventListener("click", () => {
+      simulateflag = !simulateflag;
+    });
+
+    removeUser.addEventListener("click", () => {
+      let ip = document.getElementById("ip");
+      let removed = p1.removeUser(`${ip}`);
+      if (removed === false) {
+        alert(`Unable to remove userIP ${ip.value}. userIP cannot be found`);
+      }
+    });
+
+    addUser.addEventListener("click", () => {
+      let ip = document.getElementById("ip");
+    });
+
     setInterval(updateServerInfo, 1000);
 
     //Makes the Queue block draggable, Getting its position and Locks it beside servers1-3.
     //Used to move queue back into servers when full.
     //Once a queue is connected, it attempts to push traffic into the server.
-
     dragElement(document.getElementById("queue"));
     function dragElement(elmnt) {
       var pos2 = 0,
@@ -163,7 +186,6 @@
         // otherwise, move the DIV from anywhere inside the DIV:
         elmnt.onmousedown = dragMouseDown;
       }
-
       function dragMouseDown(e) {
         e = e || window.event;
         e.preventDefault();
@@ -173,7 +195,6 @@
         // call a function whenever the cursor moves:
         document.onmousemove = elementDrag;
       }
-
       function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
@@ -183,12 +204,10 @@
         // set the element's new Y-position:
         elmnt.style.top = elmnt.offsetTop - pos2 + "px";
       }
-
       function closeDragElement() {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
-
         //Locks Position beside Server 1,2,3 depending on its ending position.
         var top = parseInt(elmnt.style.top);
         switch (true) {
@@ -196,12 +215,10 @@
             elmnt.style.top = "10px";
             queueBeside = 0;
             break;
-
           case top > 70 && top <= 390:
             elmnt.style.top = "265px";
             queueBeside = 1;
             break;
-
           case top > 390:
             elmnt.style.top = "535px";
             queueBeside = 2;
@@ -212,7 +229,10 @@
 
     //Anonymous function is needed for setInterval to allow functions with params.
     setInterval(() => p1.queueToServer(queueBeside), 1000);
-    //Attempts to add/remove from Webserver every 1 second
-    setInterval(() => p1.testWebServer(serverLogic), 1000);
+
+    //Attempts to add/remove from Webserver every 1 second, Togglable with simulate WS Button
+    setInterval(() => {
+      if (simulateflag) p1.testWebServer(serverLogic);
+    }, 1000);
   </script>
 </html>

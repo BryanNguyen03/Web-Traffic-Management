@@ -1,61 +1,55 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-body{
-    margin: 0;
-    padding: 0;
-    font-family: "Sofia Sans", serif-sans;
-    scroll-behavior: smooth;
-    color: white;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Sofia Sans", serif-sans;
+  scroll-behavior: smooth;
+  color: white;
 }
 
 #container {
-    display: flex;
-    flex-direction: row;
-    justify-content: 30px;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(45deg, #EB6440, #497174, #D6E4E5);
-  }
-
-#cards, #queue{
-
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    padding-left: 5%;
-    justify-content: space-between;
-    height: 100vh;
-
+  display: flex;
+  flex-direction: row;
+  justify-content: 30px;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(45deg, #eb6440, #497174, #d6e4e5);
 }
 
+#cards,
+#queue {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding-left: 5%;
+  justify-content: space-between;
+  height: 100vh;
+}
 
 .card {
-    margin-bottom: 40px;
-    margin-top: 40px;
-    width: 350px;
-    height: 254px;
-    border-radius: 30px;
-    background: #212121;
-    box-shadow: 15px 15px 30px rgb(25, 25, 25),
-                -15px -15px 30px rgb(60, 60, 60);
-    font-size: 30px;
-    
-    text-align:center;
-    justify-content: center;   
-       
-   }
+  margin-bottom: 40px;
+  margin-top: 40px;
+  width: 350px;
+  height: 254px;
+  border-radius: 30px;
+  background: #212121;
+  box-shadow: 15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
+  font-size: 30px;
 
-   #queue {
-    position:absolute;
-    top:0px;
-    left: 470px;
-    padding: 0%;
-    height: 254px; 
-    margin-bottom: 40px;   
-    
-   }
+  text-align: center;
+  justify-content: center;
+}
 
+#queue {
+  position: absolute;
+  top: 0px;
+  left: 470px;
+  padding: 0%;
+  height: 254px;
+  margin-bottom: 40px;
+}
 
 /* CHANGE THIS CODE, I can't really code
 well in css so style the logic buttons better pls 
@@ -65,73 +59,64 @@ well in css so style the logic buttons better pls
     position: absolute;
     top: 200px;
     right: 200px;*/
-    margin-right: 0%;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 15px;
-   
+  margin-right: 0%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
 }
 
-input[type = "radio"] {
-    display:block;
-
+input[type="radio"] {
+  display: block;
 }
 
 #server-button {
-   margin-left: 0%;
-    
+  margin-left: 0%;
 }
 
 button {
-    border: none;
-    outline: none;
-    background-color: #6c5ce7;
-    padding: 10px 20px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-    border-radius: 5px;
-    transition: all ease 0.1s;
-    box-shadow: 0px 5px 0px 0px #a29bfe;
-  }
-  
-  button:active { 
-    transform: translateY(5px);
-    box-shadow: 0px 0px 0px 0px #a29bfe;
-  }
+  border: none;
+  outline: none;
+  background-color: #6c5ce7;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 5px;
+  transition: all ease 0.1s;
+  box-shadow: 0px 5px 0px 0px #a29bfe;
+}
 
-  #ipbans{
+button:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #a29bfe;
+}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 15px;
-    
+#ipbans {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 15px;
+}
 
-  }
+.card3 {
+  position: absolute;
+  top: 200px;
+  right: 200px;
+  float: left;
+  margin: 0 auto;
+  width: 210px;
+  height: 435px;
+  background: #2d2d2d;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
 
-  .card3 {
-    
-    position: absolute;
-    top: 200px;
-    right: 200px;
-    float: left;
-    margin: 0 auto;
-    width: 210px;
-    height: 435px;
-    background: #2d2d2d;
-    border-radius: 20px;
-    transition: all .3s;
-   }
-   
-   
-   .card3:hover {
-    box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
-   }
-   
-   #scrollable-div {
-    height: 200px; /* Set the height of the div */
-    width: 300px; /* Set the width of the div */
-    overflow: auto; /* Enable scrolling */
-  }
-   
+.card3:hover {
+  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.3);
+}
+
+#scrollable-div {
+  height: 200px; /* Set the height of the div */
+  width: 300px; /* Set the width of the div */
+  overflow: auto; /* Enable scrolling */
+}
