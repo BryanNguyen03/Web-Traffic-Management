@@ -77,25 +77,7 @@
         </div>
 
         <div id="scrollable-div">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-            sed velit nec aliquet. Donec facilisis hendrerit ante, id sodales
-            neque ultricies quis. Suspendisse sed lacinia nulla. Fusce
-            pellentesque, purus a gravida vehicula, nisi quam sollicitudin
-            velit, quis tristique odio lectus sit amet est.
-          </p>
-          <p>
-            Pellentesque vel ante eu enim hendrerit congue quis eget sapien.
-            Suspendisse convallis nunc vitae est suscipit, quis laoreet felis
-            convallis. Aenean eu velit ac metus faucibus tristique eu non metus.
-            Morbi maximus fringilla feugiat.
-          </p>
-          <p>
-            Nullam rhoncus libero nec augue bibendum, nec dapibus elit pretium.
-            Fusce eget felis volutpat, varius velit vel, luctus enim.
-            Pellentesque commodo porttitor blandit. Sed bibendum blandit arcu,
-            vel aliquam neque. Suspendisse potenti.
-          </p>
+            <h2>test</h2>
         </div>
       </div>
     </section>
@@ -121,6 +103,12 @@
     const addUser = document.getElementById("adduser-button");
     const removeUser = document.getElementById("removeuser-button");
 
+    //display server info
+    const information = p1.printwebservers;
+    const scrollable = document.getElementById("scrollable-div");
+    p1.printwebservers;
+    scrollable.innerHTML = "Console message: " + console.log;
+
     //updateMethod, refreshes every 1000ms
     function updateServerInfo() {
       s1.querySelector(".s1-info").innerHTML = `${p1.getServerCapacity(0)} / ${
@@ -132,8 +120,18 @@
       s3.querySelector(".s3-info").innerHTML = `${p1.getServerCapacity(2)} / ${
         p1.MAXSIZE
       }`;
+
       q.querySelector(".queue-info").innerHTML = p1.getQueueCapacity();
+      scrollable.innerHTML = p1.printwebservers
     }
+
+    function updateDiv() {
+        //scrollable.innerHTML = p1.printwebservers;
+    }
+
+    // Refresh the div every 1 second
+    setInterval(updateDiv, 1000);
+
     //Add an EventListener to each button, changing the serverLogic depending on which number was pressed
     radioLogic.forEach((radio) => {
       radio.addEventListener("change", () => {

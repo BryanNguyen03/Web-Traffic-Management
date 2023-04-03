@@ -233,6 +233,9 @@ export default class WebServer {
   printwebservers = () => {
     for (let i = 0; i < this.getServerList().length; i++) {
       console.log(`serverlist[${i}] = [ ${this.displayServerList(i)} ]`);
+      var outputString = `serverlist[${i}] = [ ${this.displayServerList(i)} ]`;
+      document.getElementById("scrollable-div").innerHTML = outputString;
+      
     }
   };
 
