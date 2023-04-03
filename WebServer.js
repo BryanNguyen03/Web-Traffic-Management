@@ -231,12 +231,15 @@ export default class WebServer {
 
   // Helper method for printing our server lists
   printwebservers = () => {
+    var outputString  =""
     for (let i = 0; i < this.getServerList().length; i++) {
       console.log(`serverlist[${i}] = [ ${this.displayServerList(i)} ]`);
-      var outputString = `serverlist[${i}] = [ ${this.displayServerList(i)} ]`;
-      document.getElementById("scrollable-div").innerHTML = outputString;
+      outputString =outputString +"\n" + `serverlist[${i}] = [ ${this.displayServerList(i)} ]`;
+      
       
     }
+
+    document.getElementById("scrollable-div").innerHTML = outputString;
   };
 
   /*
