@@ -100,7 +100,7 @@ button:active {
 
 .card3 {
   position: absolute;
-  top: 100px;
+  top: 40px;
   right: 200px;
   float: left;
   margin: 0 auto;
@@ -116,8 +116,13 @@ button:active {
 }
 
 #scrollable-div {
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  top: 500px;
+  right: 100px;
   height: 200px; /* Set the height of the div */
   width: 400px; /* Set the width of the div */
   overflow: auto; /* Enable scrolling */
-  background-color: #212121;
+  background-color:  #2d2d2d;
 }
