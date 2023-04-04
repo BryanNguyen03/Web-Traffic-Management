@@ -198,7 +198,7 @@ export default class WebServer {
     // Boolean to keep track of whether we cannot remove due to an offline server or if the user was not found
     let removed = false;
     for (let i = 0; i < this.serverlist.length; i++) {
-      let index = this.serverlist[i].indexOf(userIP);
+      let index = this.serverlist[i].indexOf(`${userIP}`);
       // If the userIP is found in the server
       if (
         this.getServerStatus(i) !== false &&
@@ -218,6 +218,8 @@ export default class WebServer {
       console.log(`Unable to remove userIP ${userIP}. userIP cannot be found`);
       return false;
     }
+
+    return true;
   };
 
   //Shifts the front of the queue array into a serveri
@@ -231,12 +233,13 @@ export default class WebServer {
 
   // Helper method for printing our server lists
   printwebservers = () => {
-    var outputString  =""
+    var outputString = "";
     for (let i = 0; i < this.getServerList().length; i++) {
       console.log(`serverlist[${i}] = [ ${this.displayServerList(i)} ]`);
-      outputString =outputString +"\n" + `serverlist[${i}] = [ ${this.displayServerList(i)} ]`;
-      
-      
+      outputString =
+        outputString +
+        "\n" +
+        `serverlist[${i}] = [ ${this.displayServerList(i)} ]`;
     }
 
     document.getElementById("scrollable-div").innerHTML = outputString;

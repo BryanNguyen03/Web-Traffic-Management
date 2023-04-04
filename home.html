@@ -79,8 +79,7 @@
 
       <div id="scrollable-div">
         <h2>test</h2>
-    </div>
-
+      </div>
     </section>
   </body>
   <script type="module">
@@ -122,11 +121,10 @@
       }`;
 
       q.querySelector(".queue-info").innerHTML = p1.getQueueCapacity();
-      
     }
 
     function updateDiv() {
-        //scrollable.innerHTML = p1.printwebservers;
+      //scrollable.innerHTML = p1.printwebservers;
     }
 
     // Refresh the div every 1 second
@@ -157,7 +155,7 @@
 
     removeUser.addEventListener("click", () => {
       let ip = document.getElementById("ip");
-      let removed = p1.removeUser(`${ip}`);
+      let removed = p1.removeUser(`${ip.value}`);
       if (removed === false) {
         alert(`Unable to remove userIP ${ip.value}. userIP cannot be found`);
       }
