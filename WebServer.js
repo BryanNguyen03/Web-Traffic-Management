@@ -4,6 +4,7 @@ import Visitor from "./Visitor.js";
 export default class WebServer {
   constructor() {
     this.MAXSIZE = 10;
+    this.MAXQUEUESIZE = 100;
     this.server0 = [];
     this.server1 = [];
     this.server2 = [];
@@ -185,7 +186,9 @@ export default class WebServer {
   };
 
   redirectUser = (userIP, serveri) => {
-    if (serveri == "queue") {
+    if (serveri == "queue" && this.getQueueCapacity() >= this.MAXQUEUESIZE) {
+      return;
+    } else if (serveri == "queue") {
       console.log(`user moved to queue`);
       this.queue.push(userIP);
     } else {
@@ -286,9 +289,11 @@ export default class WebServer {
     if (randomNumber === 1) {
       this.registerNewUser(vis.getIP(), serverLogic);
     } else if (randomNumber === 2) {
-      this.removeUser("8.8.8.8");
+      // We'll remove the first element from a random server
+      randomNumber = Math.floor(Math.random() * 3);
+      this.serverlist[randomNumber].shift();
     } else {
-      this.registerNewUser("8.8.8.8", serverLogic);
+      this.registerNewUser(vis.getIP(), serverLogic);
     }
 
     this.printwebservers();
